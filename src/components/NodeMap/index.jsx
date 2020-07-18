@@ -6,19 +6,72 @@ const NodeMap = (props) => {
   const data = {
     nodes: props.nodes,
     links: props.links,
+    // focusedNodeId: 'nodeIdToTriggerZoomAnimation',
   };
 
   // the graph configuration, you only need to pass down properties
   // that you want to override, otherwise default ones will be used
   const myConfig = {
+    automaticRearrangeAfterDropNode: true,
+    collapsible: true,
+    directed: true,
+    focusAnimationDuration: 0.75,
+    focusZoom: 1,
+    height: 800,
+    highlightDegree: 2,
+    highlightOpacity: 0.2,
+    linkHighlightBehavior: true,
+    maxZoom: 12,
+    minZoom: 0.05,
     nodeHighlightBehavior: true,
+    panAndZoom: false,
+    staticGraph: false,
+    staticGraphWithDragAndDrop: false,
+    width: 800,
+    d3: {
+      alphaTarget: 0.05,
+      gravity: -250,
+      linkLength: 120,
+      linkStrength: 2,
+      disableLinkForce: false,
+    },
+    // nodeHighlightBehavior: true,
     node: {
-      color: 'lightgreen',
-      size: 120,
-      highlightStrokeColor: 'blue',
+      labelProperty: (node) => node.name,
+      color: '#d3d3d3',
+      fontColor: 'black',
+      fontSize: 10,
+      fontWeight: 'normal',
+      highlightColor: 'red',
+      highlightFontSize: 14,
+      highlightFontWeight: 'bold',
+      highlightStrokeColor: 'red',
+      highlightStrokeWidth: 1.5,
+      mouseCursor: 'pointer ',
+      opacity: 0.9,
+      renderLabel: true,
+      size: 200,
+      strokeColor: 'none',
+      strokeWidth: 1.5,
+      svg: '',
+      symbolType: 'circle',
     },
     link: {
-      highlightColor: 'lightblue',
+      color: 'lightgray',
+      fontColor: 'black',
+      fontSize: 8,
+      fontWeight: 'normal',
+      highlightColor: 'red',
+      highlightFontSize: 8,
+      highlightFontWeight: 'normal',
+      labelProperty: 'label',
+      mouseCursor: 'pointer',
+      opacity: 1,
+      renderLabel: false,
+      semanticStrokeWidth: true,
+      strokeWidth: 3,
+      markerHeight: 6,
+      markerWidth: 6,
     },
   };
 
@@ -74,17 +127,17 @@ const NodeMap = (props) => {
         id='graph-id' // id is mandatory, if no id is defined rd3g will throw an error
         data={data}
         config={myConfig}
-        onClickNode={onClickNode}
-        onDoubleClickNode={onDoubleClickNode}
-        onRightClickNode={onRightClickNode}
-        onClickGraph={onClickGraph}
-        onClickLink={onClickLink}
-        onRightClickLink={onRightClickLink}
-        onMouseOverNode={onMouseOverNode}
-        onMouseOutNode={onMouseOutNode}
-        onMouseOverLink={onMouseOverLink}
-        onMouseOutLink={onMouseOutLink}
-        onNodePositionChange={onNodePositionChange}
+        // onClickNode={onClickNode}
+        // onDoubleClickNode={onDoubleClickNode}
+        // onRightClickNode={onRightClickNode}
+        // onClickGraph={onClickGraph}
+        // onClickLink={onClickLink}
+        // onRightClickLink={onRightClickLink}
+        // onMouseOverNode={onMouseOverNode}
+        // onMouseOutNode={onMouseOutNode}
+        // onMouseOverLink={onMouseOverLink}
+        // onMouseOutLink={onMouseOutLink}
+        // onNodePositionChange={onNodePositionChange}
       />
     </div>
   );
