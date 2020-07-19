@@ -7,7 +7,7 @@ const Home = (props) => {
   // const members = data.map(item => item.members);
 
   const members = data.reduce((acc, cur) => {
-    const mbs = cur.members.map((mb) => ({ ...mb, id: mb.din,  }));
+    const mbs = cur.members.map((mb) => ({ ...mb, id: mb.din }));
     acc = [...acc, ...mbs];
     return acc;
   }, []);
@@ -15,6 +15,7 @@ const Home = (props) => {
   const organizations = data.map((item) => ({
     ...item.organization,
     id: item.organization.cin,
+    symbolType: 'square',
   }));
 
   let links = [];

@@ -1,23 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Graph } from 'react-d3-graph';
 
 const NodeMap = (props) => {
   // graph payload (with minimalist structure)
-  const data = {
+
+  const initialData = {
     nodes: props.nodes,
     links: props.links,
-    // focusedNodeId: 'nodeIdToTriggerZoomAnimation',
   };
+
+  console.log('checking how many times it executing');
+  const [data, setData] = useState(initialData);
 
   // the graph configuration, you only need to pass down properties
   // that you want to override, otherwise default ones will be used
   const myConfig = {
     automaticRearrangeAfterDropNode: true,
-    collapsible: true,
+    collapsible: false,
     directed: true,
     focusAnimationDuration: 0.75,
     focusZoom: 1,
-    height: 800,
+    height: 500,
     highlightDegree: 2,
     highlightOpacity: 0.2,
     linkHighlightBehavior: true,
@@ -27,10 +30,10 @@ const NodeMap = (props) => {
     panAndZoom: false,
     staticGraph: false,
     staticGraphWithDragAndDrop: false,
-    width: 800,
+    width: 1000,
     d3: {
       alphaTarget: 0.05,
-      gravity: -250,
+      gravity: -1000,
       linkLength: 120,
       linkStrength: 2,
       disableLinkForce: false,
@@ -75,59 +78,116 @@ const NodeMap = (props) => {
     },
   };
 
+  
   // graph event callbacks
-  const onClickGraph = function () {
-    window.alert(`Clicked the graph background`);
-  };
+  // const onClickGraph = function () {
+  //   window.alert(`Clicked the graph background`);
+  // };
 
   const onClickNode = function (nodeId) {
-    window.alert(`Clicked node ${nodeId}`);
-  };
+    console.log('nodeId---------', nodeId);
+    const { nodes, links } = data;
+    // const selectedNodes = nodes.filter(i => Number(i.id) === Number(nodeId));
 
-  const onDoubleClickNode = function (nodeId) {
-    window.alert(`Double clicked node ${nodeId}`);
-  };
+    // const connectedNodes = links.reduce((acc, link) => {
+    //   if (
+    //     [link.source].includes(Number(nodeId))
+    //   ) {
+    //     acc.push(link.source)
+    //   } else if([link.target].includes(nodeId)) {
+    //     acc.push(link.target)
+    //   }
+    //   return acc;
+    // }, []);
 
-  const onRightClickNode = function (event, nodeId) {
-    window.alert(`Right clicked node ${nodeId}`);
-  };
-
-  const onMouseOverNode = function (nodeId) {
-    window.alert(`Mouse over node ${nodeId}`);
-  };
-
-  const onMouseOutNode = function (nodeId) {
-    window.alert(`Mouse out node ${nodeId}`);
-  };
-
-  const onClickLink = function (source, target) {
-    window.alert(`Clicked link between ${source} and ${target}`);
-  };
-
-  const onRightClickLink = function (event, source, target) {
-    window.alert(`Right clicked link between ${source} and ${target}`);
-  };
-
-  const onMouseOverLink = function (source, target) {
-    window.alert(`Mouse over in link between ${source} and ${target}`);
-  };
-
-  const onMouseOutLink = function (source, target) {
-    window.alert(`Mouse out link between ${source} and ${target}`);
-  };
-
-  const onNodePositionChange = function (nodeId, x, y) {
-    window.alert(
-      `Node ${nodeId} is moved to new position. New position is x= ${x} y= ${y}`
+    // links.map((link) => {
+    //   if (link.source === Number(nodeId)) {
+    //     console.log(link);
+    //   } else if (link.target === nodeId) {
+    //     console.log('target', link);
+    //   }
+    // });
+    // console.log(connectedNodes);
+    const nodeIndex = nodes.findIndex(
+      (node) => Number(node.id) === Number(nodeId) || node.id === nodeId
     );
+
+    // console.log('nodeIndex', nodeIndex)
+    if (nodes[nodeIndex].color) {
+      nodes[nodeIndex].color = '';
+    } else nodes[nodeIndex].color = 'black';
+
+    console.log(nodes[nodeIndex])
+    // nodes.forEach((node) => {
+    //   // console.log('selected', node.id);
+    //   if (Number(node.id) === Number(nodeId) || node.id === nodeId) {
+    //     if (node.color) {
+    //       node.color = '';
+    //     } else node.color = 'black';
+    //   }
+    // });
+
+    links.forEach((link) => {
+      if (
+        [link.source, link.target].includes(nodeId) ||
+        [link.source, link.target].includes(Number(nodeId))
+      ) {
+        if(link.color) {
+          link.color = '';
+        } else link.color = 'black';
+      }
+    });
+
+    setData({ nodes: nodes, links: links });
   };
+
+  /** 
+   * uncomment functions if needed
+  */
+  // const onDoubleClickNode = function (nodeId) {
+  //   window.alert(`Double clicked node ${nodeId}`);
+  // };
+
+  // const onRightClickNode = function (event, nodeId) {
+  //   window.alert(`Right clicked node ${nodeId}`);
+  // };
+
+  // const onMouseOverNode = function (nodeId) {
+  //   window.alert(`Mouse over node ${nodeId}`);
+  // };
+
+  // const onMouseOutNode = function (nodeId) {
+  //   window.alert(`Mouse out node ${nodeId}`);
+  // };
+
+  // const onClickLink = function (source, target) {
+  //   window.alert(`Clicked link between ${source} and ${target}`);
+  // };
+
+  // const onRightClickLink = function (event, source, target) {
+  //   window.alert(`Right clicked link between ${source} and ${target}`);
+  // };
+
+  // const onMouseOverLink = function (source, target) {
+  //   window.alert(`Mouse over in link between ${source} and ${target}`);
+  // };
+
+  // const onMouseOutLink = function (source, target) {
+  //   window.alert(`Mouse out link between ${source} and ${target}`);
+  // };
+
+  // const onNodePositionChange = function (nodeId, x, y) {
+  //   window.alert(
+  //     `Node ${nodeId} is moved to new position. New position is x= ${x} y= ${y}`
+  //   );
+  // };
   return (
     <div>
       <Graph
         id='graph-id' // id is mandatory, if no id is defined rd3g will throw an error
         data={data}
         config={myConfig}
-        // onClickNode={onClickNode}
+        onClickNode={onClickNode}
         // onDoubleClickNode={onDoubleClickNode}
         // onRightClickNode={onRightClickNode}
         // onClickGraph={onClickGraph}
