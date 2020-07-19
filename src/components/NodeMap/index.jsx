@@ -87,27 +87,6 @@ const NodeMap = (props) => {
   const onClickNode = function (nodeId) {
     console.log('nodeId---------', nodeId);
     const { nodes, links } = data;
-    // const selectedNodes = nodes.filter(i => Number(i.id) === Number(nodeId));
-
-    // const connectedNodes = links.reduce((acc, link) => {
-    //   if (
-    //     [link.source].includes(Number(nodeId))
-    //   ) {
-    //     acc.push(link.source)
-    //   } else if([link.target].includes(nodeId)) {
-    //     acc.push(link.target)
-    //   }
-    //   return acc;
-    // }, []);
-
-    // links.map((link) => {
-    //   if (link.source === Number(nodeId)) {
-    //     console.log(link);
-    //   } else if (link.target === nodeId) {
-    //     console.log('target', link);
-    //   }
-    // });
-    // console.log(connectedNodes);
     const nodeIndex = nodes.findIndex(
       (node) => Number(node.id) === Number(nodeId) || node.id === nodeId
     );
@@ -116,16 +95,6 @@ const NodeMap = (props) => {
     if (nodes[nodeIndex].color) {
       nodes[nodeIndex].color = '';
     } else nodes[nodeIndex].color = 'black';
-
-    console.log(nodes[nodeIndex])
-    // nodes.forEach((node) => {
-    //   // console.log('selected', node.id);
-    //   if (Number(node.id) === Number(nodeId) || node.id === nodeId) {
-    //     if (node.color) {
-    //       node.color = '';
-    //     } else node.color = 'black';
-    //   }
-    // });
 
     links.forEach((link) => {
       if (
@@ -141,46 +110,6 @@ const NodeMap = (props) => {
     setData({ nodes: nodes, links: links });
   };
 
-  /** 
-   * uncomment functions if needed
-  */
-  // const onDoubleClickNode = function (nodeId) {
-  //   window.alert(`Double clicked node ${nodeId}`);
-  // };
-
-  // const onRightClickNode = function (event, nodeId) {
-  //   window.alert(`Right clicked node ${nodeId}`);
-  // };
-
-  // const onMouseOverNode = function (nodeId) {
-  //   window.alert(`Mouse over node ${nodeId}`);
-  // };
-
-  // const onMouseOutNode = function (nodeId) {
-  //   window.alert(`Mouse out node ${nodeId}`);
-  // };
-
-  // const onClickLink = function (source, target) {
-  //   window.alert(`Clicked link between ${source} and ${target}`);
-  // };
-
-  // const onRightClickLink = function (event, source, target) {
-  //   window.alert(`Right clicked link between ${source} and ${target}`);
-  // };
-
-  // const onMouseOverLink = function (source, target) {
-  //   window.alert(`Mouse over in link between ${source} and ${target}`);
-  // };
-
-  // const onMouseOutLink = function (source, target) {
-  //   window.alert(`Mouse out link between ${source} and ${target}`);
-  // };
-
-  // const onNodePositionChange = function (nodeId, x, y) {
-  //   window.alert(
-  //     `Node ${nodeId} is moved to new position. New position is x= ${x} y= ${y}`
-  //   );
-  // };
   return (
     <div>
       <Graph
@@ -188,16 +117,6 @@ const NodeMap = (props) => {
         data={data}
         config={myConfig}
         onClickNode={onClickNode}
-        // onDoubleClickNode={onDoubleClickNode}
-        // onRightClickNode={onRightClickNode}
-        // onClickGraph={onClickGraph}
-        // onClickLink={onClickLink}
-        // onRightClickLink={onRightClickLink}
-        // onMouseOverNode={onMouseOverNode}
-        // onMouseOutNode={onMouseOutNode}
-        // onMouseOverLink={onMouseOverLink}
-        // onMouseOutLink={onMouseOutLink}
-        // onNodePositionChange={onNodePositionChange}
       />
     </div>
   );

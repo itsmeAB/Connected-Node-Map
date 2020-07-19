@@ -30,7 +30,7 @@ const Home = (props) => {
   console.log(members, organizations);
   return (
     <div>
-      HOME ROUTE
+      NODE MAP
       <div>
         <NodeMap nodes={[...members, ...organizations]} links={links} />
       </div>
